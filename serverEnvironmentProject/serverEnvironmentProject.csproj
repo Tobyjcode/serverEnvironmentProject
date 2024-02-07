@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\js\gaugeChart.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\lib\js\gaugeChart.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Lib\js\" />
+    <Folder Include="wwwroot\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\js\gaugeChart.js" />
+  </ItemGroup>
+
+</Project>

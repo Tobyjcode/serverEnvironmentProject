@@ -1,0 +1,57 @@
+﻿ @page "/Index"
+@inject IJSRuntime JsRunTime
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/lib/js/chart.js"></script>
+<div id="chartDiv" style="height:400px;"></div>
+@* <button @onclick="PlotSin">Sin</button>
+<button @onclick="PlotRandom">Random</button>
+<button @onclick="PlotWalk">Walk</button>
+<button @onclick="PlotRandomXY">RandomXY</button> *@
+
+@* <input type="range" @bind="PointCount" @bind:event="oninput="> *@
+
+@code {
+    private int PointCount = 123;
+    Random Rand = new Random();
+
+    private void PlotData(double[] xs, double[] ys)
+    {
+        JsRunTime.InvokeVoidAsync("generateChart", new { xs, ys });
+    }
+
+    // chart example af plotsin
+    private void PlotSin()
+    {
+        double[] xs = Enumerable.Range(0, PointCount).Select(x => (double)x).ToArray();
+        double[] ys = xs.Select(x => Math.Sin(x / 10)).ToArray();
+        PlotData(xs, ys);
+    }
+    // et random plot
+    private void PlotRandom()
+    {
+        double[] xs = Enumerable.Range(0, PointCount).Select(x => (double)x).ToArray();
+        double[] ys = xs.Select(x => (Rand.NextDouble() - 0.5) * 1000).ToArray();
+        PlotData(xs, ys);
+    }
+    // et walk plot? skal lige finde vores egne plots vi vil have ind af google charts
+    private void PlotWalk()
+    {
+        double[] xs = Enumerable.Range(0, PointCount).Select(x => (double)x).ToArray();
+        double[] ys = new double[PointCount];
+
+        for (int i = 1; i < ys.Length; i++)
+        {
+            ys[i] = ys[i - 1] + Rand.NextDouble() - 0.5;
+        }
+
+        // Call PlotData to plot the walk data
+        PlotData(xs, ys);
+    }
+    // Plotting random x og y axer
+    private void PlotRandomXY()
+    {
+        double[] xs = Enumerable.Range(0, PointCount).Select(x => Rand.NextDouble()).ToArray();
+        double[] ys = Enumerable.Range(0, PointCount).Select(x => Rand.NextDouble()).ToArray();
+        PlotData(xs, ys);
+    }
+}
