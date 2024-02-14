@@ -1,15 +1,16 @@
-﻿ @page "/Index"
+﻿@page "/Index"
 @inject IJSRuntime JsRunTime
 @rendermode InteractiveServer
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/lib/js/chart.js"></script>
 <div id="chartDiv" style="height:400px;"></div>
-@* <button @onclick="PlotSin">Sin</button>
-<button @onclick="PlotRandom">Random</button>
-<button @onclick="PlotWalk">Walk</button>
-<button @onclick="PlotRandomXY">RandomXY</button> *@
+<button class="btn btn-primary rounded-pill" @onclick="PlotSin">Sin</button>
+<button class="btn btn-primary rounded-pill" @onclick="PlotRandom">Random</button>
+<button class="btn btn-primary rounded-pill" @onclick="PlotWalk">Walk</button>
+<button class="btn btn-primary rounded-pill" @onclick="PlotRandomXY">RandomXY</button>
 
-@* <input type="range" @bind="PointCount" @bind:event="oninput="> *@
+@* <input type="color" @bind="PointCount" @bind:event="oninput=">
+ *@
 
 @code {
     private int PointCount = 123;
