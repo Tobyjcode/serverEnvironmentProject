@@ -1,8 +1,14 @@
 ﻿@page "/"
 @inject IJSRuntime JsRuntime
+@rendermode InteractiveServer
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/lib/js/chart.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/lib/js/gaugechart.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/lib/js/timechart.js"></script>
 <Index></Index>
-<CO2Chart></CO2Chart>
+<a href="/index">
+    <CO2Chart></CO2Chart>
+</a>
+

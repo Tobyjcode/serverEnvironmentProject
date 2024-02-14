@@ -1,6 +1,5 @@
-﻿@page "/CO2Chart"
+﻿@* @page "/TimeChart"
 @inject IJSRuntime JsRuntime
-@rendermode InteractiveServer
 
 <div id="chart_div" style="width: 400px; height: 120px;"></div>
 
@@ -9,4 +8,4 @@
     {
         JsRuntime.InvokeVoidAsync("drawChart");
     }
-}
+} *@
