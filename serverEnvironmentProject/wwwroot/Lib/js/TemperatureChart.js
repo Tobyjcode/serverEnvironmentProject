@@ -1,7 +1,7 @@
-// gaugeChart.js
+// TemperatureChart.js
 google.charts.load('current', { 'packages': ['gauge'] });
 
-function drawChart(label, value, elementId) {
+function drawTemperatureChart(label, value, elementId) {
     google.charts.setOnLoadCallback(function () {
         var data = google.visualization.arrayToDataTable([
             ['Label', 'Value'],

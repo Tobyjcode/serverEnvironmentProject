@@ -1,10 +1,26 @@
 ﻿@page "/"
 @inject IJSRuntime JsRuntime
 @rendermode InteractiveServer
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="/lib/js/chart.js"></script>
-<script src="/lib/js/gaugechart.js"></script>
-<script src="/lib/js/timechart.js"></script>
+<script src="/lib/js/CO2Chart.js"></script>
+<script src="/lib/js/AirQualityChart.js"></script>
+<script src="/lib/js/TemperatureChart.js"></script>
+<script src="/lib/js/HumidityChart.js"></script>
+<script src="/lib/js/AirPressureChart.js"></script>
+
 <a href="/index">
     <CO2Chart></CO2Chart>
+</a>
+<a href="/index">
+    <AirQualityChart></AirQualityChart>
+</a>
+<a href="/index">
+    <TemperatureChart></TemperatureChart>
+</a>
+<a href="/index">
+    <HumidityChart></HumidityChart>
+</a>
+<a href="/index">
+    <AirPressureChart></AirPressureChart>
 </a>

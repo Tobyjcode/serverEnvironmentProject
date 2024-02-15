@@ -2,11 +2,14 @@
 @inject IJSRuntime JsRuntime
 @rendermode InteractiveServer
 
-<div id="chart_div" style="width: 400px; height: 120px;"></div>
+<div id="CO2_chart_div" style="width: 400px; height: 120px;"></div>
 
 @code {
-    private void DrawGaugeChart()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        JsRuntime.InvokeVoidAsync("drawChart");
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("drawChart", "CO2", 55, "CO2_chart_div");
+        }
     }
 }

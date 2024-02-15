@@ -1,0 +1,15 @@
+﻿@page "/TemperatureChart"
+@inject IJSRuntime JsRuntime
+@rendermode InteractiveServer
+
+<div id="Temperature_chart_div" style="width: 400px; height: 120px;"></div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("drawTemperatureChart", "Temperature", 68, "Temperature_chart_div");
+        }
+    }
+}
