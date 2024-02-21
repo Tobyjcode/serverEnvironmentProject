@@ -1,12 +1,19 @@
-﻿@page "/CO2Chart"
-@inject IJSRuntime JsRuntime
+﻿@page "/counter"
 @rendermode InteractiveServer
 
-<div id="CO2_chart_div" style="width: 400px; height: 120px;"></div>
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private void DrawGaugeChart()
+    private int currentCount = 0;
+
+    private void IncrementCount()
     {
-        JsRuntime.InvokeVoidAsync("drawCO2Chart");
+        currentCount++;
     }
 }

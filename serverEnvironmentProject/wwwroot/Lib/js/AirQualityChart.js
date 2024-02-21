@@ -1,7 +1,6 @@
-// AirQualityChart.js
 google.charts.load('current', { 'packages': ['gauge'] });
 
-function drawAirQualityChart(label, value, elementId) {
+function drawChart(label, value, elementId) {
     google.charts.setOnLoadCallback(function () {
         var data = google.visualization.arrayToDataTable([
             ['Label', 'Value'],
@@ -9,7 +8,7 @@ function drawAirQualityChart(label, value, elementId) {
         ]);
 
         var options = {
-            width: 400, height: 120,
+            width: 900, height: 900,
             redFrom: 90, redTo: 100,
             yellowFrom: 75, yellowTo: 90,
             minorTicks: 5

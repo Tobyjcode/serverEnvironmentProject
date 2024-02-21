@@ -3,14 +3,82 @@
 @rendermode InteractiveServer
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/lib/js/chart.js"></script>
-<div id="chartDiv" style="height:400px;"></div>
-<button class="btn btn-primary rounded-pill" @onclick="PlotSin">Sin</button>
-<button class="btn btn-primary rounded-pill" @onclick="PlotRandom">Random</button>
-<button class="btn btn-primary rounded-pill" @onclick="PlotWalk">Walk</button>
-<button class="btn btn-primary rounded-pill" @onclick="PlotRandomXY">RandomXY</button>
 
-@* <input type="color" @bind="PointCount" @bind:event="oninput=">
- *@
+<style>
+    /* Styles for sidebar and hamburger menu */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #f8f9fa;
+        transition: transform 0.5s ease;
+        transform: translateX(-250px);
+        z-index: 1000;
+    }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: black;
+        }
+
+    .content {
+        margin-left: 0;
+        transition: margin-left 0.5s ease;
+    }
+
+    .content-push {
+        margin-left: 250px;
+    }
+
+    /* Adjust button style */
+    .sidebar-button {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1001;
+    }
+</style>
+
+<!-- Hamburger menu button -->
+<button class="sidebar-button" @onclick="ToggleSidebar">☰</button>
+
+<!-- Sidebar -->
+<div class="sidebar @(isSidebarVisible ? "show" : "")">
+    <ul>
+        <li><a href="/index">CO2 Chart</a></li>
+        <li><a href="/index">Air Quality Chart</a></li>
+        <li><a href="/index">Temperature Chart</a></li>
+        <li><a href="/index">Humidity Chart</a></li>
+        <li><a href="/index">Air Pressure Chart</a></li>
+        <li><a href="/">Home</a></li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="content @(isSidebarVisible ? "content-push" : "")">
+    <!-- Your existing content -->
+    <div id="chartDiv" style="height:400px;"></div>
+
+    <button class="btn btn-primary rounded-pill" @onclick="PlotSin">Sin</button>
+    <button class="btn btn-primary rounded-pill" @onclick="PlotRandom">Random</button>
+    <button class="btn btn-primary rounded-pill" @onclick="PlotWalk">Walk</button>
+    <button class="btn btn-primary rounded-pill" @onclick="PlotRandomXY">RandomXY</button>
+</div>
 
 @code {
     private int PointCount = 123;
@@ -56,4 +124,12 @@
         double[] ys = Enumerable.Range(0, PointCount).Select(x => Rand.NextDouble()).ToArray();
         PlotData(xs, ys);
     }
+    bool isSidebarVisible = false;
+
+    void ToggleSidebar()
+    {
+        isSidebarVisible = !isSidebarVisible;
+    }
+
+    // Your existing code for plotting data...
 }

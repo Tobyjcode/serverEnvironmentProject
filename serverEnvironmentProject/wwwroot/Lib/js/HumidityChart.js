@@ -1,7 +1,7 @@
-// HumidityChart.js
+// gaugeChart.js
 google.charts.load('current', { 'packages': ['gauge'] });
 
-function drawHumidityChart(label, value, elementId) {
+function drawHumidityChart(label, value, elementId, width, height) {
     google.charts.setOnLoadCallback(function () {
         var data = google.visualization.arrayToDataTable([
             ['Label', 'Value'],
@@ -9,8 +9,8 @@ function drawHumidityChart(label, value, elementId) {
         ]);
 
         var options = {
-            width: 400, height: 120,
-            redFrom: 90, redTo: 100,
+            width: width, height: height,
+            redFrom: 200, redTo: 130,
             yellowFrom: 75, yellowTo: 90,
             minorTicks: 5
         };

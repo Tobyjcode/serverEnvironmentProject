@@ -25,7 +25,7 @@ window.generateChart = (params) => {
 
     // This variable contains options for what can be displayed on the chart
     var options = {
-        hAxis: { title: 'Time (Miniute)' },
+        hAxis: { title: 'Time (Miniute)'}, // Set the max value here
         vAxis: { title: 'Temperature' },
         title: 'temperature chart test',
         legend: { position: 'none' },
