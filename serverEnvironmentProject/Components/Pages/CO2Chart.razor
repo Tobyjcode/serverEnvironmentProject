@@ -1,15 +1,16 @@
 ﻿@page "/CO2Chart"
 @inject IJSRuntime JsRuntime
 @rendermode InteractiveServer
-<script src="/lib/js/co2Chart.js"></script>
-<div id="CO2_chart_div" style="height: 600px; width: 600px;"></div>
+<script src="/lib/js/CO2Chart.js"></script>
+
+<div id="CO2_chart_div" style="height: 500px; width: 500px;"></div>
 
 @code {
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender != true)
+        if (firstRender)
         {
-            var _ = JsRuntime.InvokeVoidAsync("drawChart");
+            await JsRuntime.InvokeVoidAsync("drawCO2Chart", "CO2", 70, "CO2_chart_div");
         }
     }
 }

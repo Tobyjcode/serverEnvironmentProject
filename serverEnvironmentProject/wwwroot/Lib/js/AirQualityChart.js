@@ -8,7 +8,7 @@ function drawChart(label, value, elementId) {
         ]);
 
         var options = {
-            width: 900, height: 900,
+            width: 200, height: 500,
             redFrom: 90, redTo: 100,
             yellowFrom: 75, yellowTo: 90,
             minorTicks: 5
