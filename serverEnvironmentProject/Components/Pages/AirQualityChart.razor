@@ -1,0 +1,15 @@
+﻿@page "/AirQualityChart"
+@inject IJSRuntime JsRuntime
+@rendermode InteractiveServer
+<script src="/lib/js/airQualityChart.js"></script>
+<div id="AirQuality_chart_div" style="height: 100%; width: 100%;"></div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("drawChart", "Air Quality", 50, "AirQuality_chart_div"); // fuktionen, parameter til vores navn på grafen, værdien, og dens div id
+        }
+    }
+}

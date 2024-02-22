@@ -1,0 +1,16 @@
+﻿@* @page "/AirPressureChart"
+@inject IJSRuntime JsRuntime
+@rendermode InteractiveServer
+
+<div id="AirPressure_chart_div" style="width: 400px; height: 120px;"></div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("drawAirPressureChart", "Air Pressure", 75, "AirPressure_chart_div");
+        }
+    }
+}
+ *@

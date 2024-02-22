@@ -3,14 +3,83 @@
 @rendermode InteractiveServer
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/lib/js/chart.js"></script>
-<div id="chartDiv" style="height:400px;"></div>
-<button class="btn btn-primary rounded-pill" @onclick="PlotSin">Sin</button>
-<button class="btn btn-primary rounded-pill" @onclick="PlotRandom">Random</button>
-<button class="btn btn-primary rounded-pill" @onclick="PlotWalk">Walk</button>
-<button class="btn btn-primary rounded-pill" @onclick="PlotRandomXY">RandomXY</button>
 
-@* <input type="color" @bind="PointCount" @bind:event="oninput=">
- *@
+<style>
+    /*I min kode har jeg blandet meget dansk og engelsk i kommentare du spørger måske hvorfor? svaret er fordi jeg kan :D og fordi det var hyggeligt (og kunne ikke beslutte mig)*/
+    /* Styles for sidebar and hamburger menu */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #f8f9fa;
+        transition: transform 0.5s ease;
+        transform: translateX(-250px);
+        z-index: 1000;
+    }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: black;
+        }
+
+    .content {
+        margin-left: 0;
+        transition: margin-left 0.5s ease;
+    }
+
+    .content-push {
+        margin-left: 250px;
+    }
+
+    /* Her kan vi justere vores knap stil */
+    .sidebar-button {
+        position: fixed;
+        top: 0px;
+        left: @(isSidebarVisible ? "220px" : "0px");
+        z-index: 1001;
+        transition: left 0.5s ease;
+    }
+</style>
+
+<!-- Hamburger menu button -->
+<button class="sidebar-button" @onclick="ToggleSidebar">☰</button>
+
+<!-- vores Sidebar -->
+<div class="sidebar @(isSidebarVisible ? "show" : "")">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/index">CO2 Chart</a></li>
+        <li><a href="/index">Air Quality Chart</a></li>
+        <li><a href="/index">Temperature Chart</a></li>
+        <li><a href="/index">Humidity Chart</a></li>
+        <li><a href="/index">Air Pressure Chart</a></li>
+    </ul>
+</div>
+
+<!-- Vores Content -->
+<div class="content @(isSidebarVisible ? "content-push" : "")">
+    <div id="chartDiv" style="height:400px;"></div>
+
+    <button class="btn btn-primary rounded-pill" @onclick="PlotSin">Sin</button>
+    <button class="btn btn-primary rounded-pill" @onclick="PlotRandom">Random</button>
+    <button class="btn btn-primary rounded-pill" @onclick="PlotWalk">Walk</button>
+    <button class="btn btn-primary rounded-pill" @onclick="PlotRandomXY">RandomXY</button>
+</div>
 
 @code {
     private int PointCount = 123;
@@ -35,7 +104,7 @@
         double[] ys = xs.Select(x => (Rand.NextDouble() - 0.5) * 1000).ToArray();
         PlotData(xs, ys);
     }
-    // et walk plot? skal lige finde vores egne plots vi vil have ind af google charts
+    // et walk plot google charts
     private void PlotWalk()
     {
         double[] xs = Enumerable.Range(0, PointCount).Select(x => (double)x).ToArray();
@@ -46,7 +115,7 @@
             ys[i] = ys[i - 1] + Rand.NextDouble() - 0.5;
         }
 
-        // Call PlotData to plot the walk data
+        // Vi laver et Call PlotData to plot the walk data
         PlotData(xs, ys);
     }
     // Plotting random x og y axer
@@ -55,5 +124,11 @@
         double[] xs = Enumerable.Range(0, PointCount).Select(x => Rand.NextDouble()).ToArray();
         double[] ys = Enumerable.Range(0, PointCount).Select(x => Rand.NextDouble()).ToArray();
         PlotData(xs, ys);
+    }
+    bool isSidebarVisible = false;
+
+    void ToggleSidebar()
+    {
+        isSidebarVisible = !isSidebarVisible;
     }
 }

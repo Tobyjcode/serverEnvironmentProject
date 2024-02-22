@@ -2,9 +2,118 @@
 @inject IJSRuntime JsRuntime
 @rendermode InteractiveServer
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="/lib/js/chart.js"></script>
-<script src="/lib/js/gaugechart.js"></script>
-<script src="/lib/js/timechart.js"></script>
-<a href="/index">
-    <CO2Chart></CO2Chart>
-</a>
+<script src="/lib/js/temperaturechart.js"></script>
+<script src="/lib/js/airqualitychart.js"></script>
+<script src="/lib/js/co2chart.js"></script>
+<script src="/lib/js/humiditychart.js"></script>
+
+<style>
+    .sidebar-container {
+        display: flex;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #f8f9fa;
+        transition: transform 0.5s ease;
+        transform: translateX(-250px);
+        z-index: 1000;
+    }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: black;
+        }
+
+    .content-push {
+        margin-left: 250px;
+    }
+
+    .sidebar-button {
+        position: fixed;
+        top: 0px;
+        left: @(isSidebarVisible ? "220px" : "0px");
+        z-index: 1001;
+        transition: left 0.5s ease;
+    }
+
+    .chart-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* this creates two columns of equal width */
+        grid-template-rows: 1fr 1fr; /* this createes two rows of equal height */
+        height: calc(100vh - 250px); /* adjust the height considering the sidebar vores vertial height*/
+        width: calc(100vw - 250px); /* adjust the width considering the sidebar vores vertical width*/
+    }
+
+    .chart {
+        border: 1px solid black;
+        padding: 20px;
+    }
+</style>
+
+<div class="sidebar-container">
+    <div class="sidebar @(isSidebarVisible ? "show" : "")">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/HumidityChart">CO2 Chart</a></li>
+            <li><a href="/index">Air Quality Chart</a></li>
+            <li><a href="/index">Temperature Chart</a></li>
+            <li><a href="/index">Humidity Chart</a></li>
+        </ul>
+    </div>
+
+    <div class="content @(isSidebarVisible ? "content-push" : "")">
+        <div class="chart-container">
+            <div class="chart">
+                <a href="/index">
+                    <CO2Chart></CO2Chart>
+                </a>
+            </div>
+            <div class="chart">
+                <a href="/index">
+                    <AirQualityChart></AirQualityChart>
+                </a>
+            </div>
+            <div class="chart">
+                <a href="/index">
+                    <TemperatureChart></TemperatureChart>
+                </a>
+            </div>
+            <div class="chart">
+                <a href="/index">
+                    <HumidityChart></HumidityChart>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="sidebar-button" @onclick="ToggleSidebar">☰</button>
+
+@code {
+    bool isSidebarVisible = false;
+
+    void ToggleSidebar()
+    {
+        isSidebarVisible = !isSidebarVisible;
+    }
+
+    
+}

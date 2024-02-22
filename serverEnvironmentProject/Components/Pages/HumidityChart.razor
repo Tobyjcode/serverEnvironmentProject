@@ -1,0 +1,16 @@
+﻿@page "/HumidityChart"
+@inject IJSRuntime JsRuntime
+@rendermode InteractiveServer
+<script src="/lib/js/HumidityChart.js"></script>
+
+<div id="Humidity_chart_div" style="height: 100%; width: 100%;"></div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("drawHumidityChart", "Humidity", 70, "Humidity_chart_div");
+        }
+    }
+}
