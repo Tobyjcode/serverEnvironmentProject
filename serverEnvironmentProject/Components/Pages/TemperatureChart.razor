@@ -1,9 +1,8 @@
 ﻿@page "/TemperatureChart"
 @inject IJSRuntime JsRuntime
 @rendermode InteractiveServer
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/lib/js/TemperatureChart.js"></script>
-<div id="Temperature_chart_div" style="width: 400px; height: 400px;"></div>
+<div id="Temperature_chart_div" style="width: 100%; height: 100%;"></div>
 
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)

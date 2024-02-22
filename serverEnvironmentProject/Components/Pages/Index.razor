@@ -5,6 +5,7 @@
 <script src="/lib/js/chart.js"></script>
 
 <style>
+    /*I min kode har jeg blandet meget dansk og engelsk i kommentare du spørger måske hvorfor? svaret er fordi jeg kan :D og fordi det var hyggeligt (og kunne ikke beslutte mig)*/
     /* Styles for sidebar and hamburger menu */
     .sidebar {
         position: fixed;
@@ -45,33 +46,33 @@
         margin-left: 250px;
     }
 
-    /* Adjust button style */
+    /* Her kan vi justere vores knap stil */
     .sidebar-button {
         position: fixed;
-        top: 10px;
-        left: 10px;
+        top: 0px;
+        left: @(isSidebarVisible ? "220px" : "0px");
         z-index: 1001;
+        transition: left 0.5s ease;
     }
 </style>
 
 <!-- Hamburger menu button -->
 <button class="sidebar-button" @onclick="ToggleSidebar">☰</button>
 
-<!-- Sidebar -->
+<!-- vores Sidebar -->
 <div class="sidebar @(isSidebarVisible ? "show" : "")">
     <ul>
+        <li><a href="/">Home</a></li>
         <li><a href="/index">CO2 Chart</a></li>
         <li><a href="/index">Air Quality Chart</a></li>
         <li><a href="/index">Temperature Chart</a></li>
         <li><a href="/index">Humidity Chart</a></li>
         <li><a href="/index">Air Pressure Chart</a></li>
-        <li><a href="/">Home</a></li>
     </ul>
 </div>
 
-<!-- Content -->
+<!-- Vores Content -->
 <div class="content @(isSidebarVisible ? "content-push" : "")">
-    <!-- Your existing content -->
     <div id="chartDiv" style="height:400px;"></div>
 
     <button class="btn btn-primary rounded-pill" @onclick="PlotSin">Sin</button>
@@ -103,7 +104,7 @@
         double[] ys = xs.Select(x => (Rand.NextDouble() - 0.5) * 1000).ToArray();
         PlotData(xs, ys);
     }
-    // et walk plot? skal lige finde vores egne plots vi vil have ind af google charts
+    // et walk plot google charts
     private void PlotWalk()
     {
         double[] xs = Enumerable.Range(0, PointCount).Select(x => (double)x).ToArray();
@@ -114,7 +115,7 @@
             ys[i] = ys[i - 1] + Rand.NextDouble() - 0.5;
         }
 
-        // Call PlotData to plot the walk data
+        // Vi laver et Call PlotData to plot the walk data
         PlotData(xs, ys);
     }
     // Plotting random x og y axer
@@ -130,6 +131,4 @@
     {
         isSidebarVisible = !isSidebarVisible;
     }
-
-    // Your existing code for plotting data...
 }

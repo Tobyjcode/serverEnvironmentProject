@@ -6,6 +6,7 @@
 <script src="/lib/js/airqualitychart.js"></script>
 <script src="/lib/js/co2chart.js"></script>
 <script src="/lib/js/humiditychart.js"></script>
+
 <style>
     .sidebar-container {
         display: flex;
@@ -41,78 +42,78 @@
             color: black;
         }
 
-   
     .content-push {
         margin-left: 250px;
     }
 
-    /* Adjust button style */
     .sidebar-button {
         position: fixed;
-        top: 10px;
-        right: 10px;
+        top: 0px;
+        left: @(isSidebarVisible ? "220px" : "0px");
         z-index: 1001;
+        transition: left 0.5s ease;
     }
 
-    
     .chart-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* this creates two columns of equal width */
+        grid-template-rows: 1fr 1fr; /* this createes two rows of equal height */
+        height: calc(100vh - 250px); /* adjust the height considering the sidebar vores vertial height*/
+        width: calc(100vw - 250px); /* adjust the width considering the sidebar vores vertical width*/
     }
 
     .chart {
-        flex-basis: calc(50% - 10px); /* Chart styling prøver på at få flex boxes og nice grafer til at se ordenlig ud på pagen */
+        border: 1px solid black;
+        padding: 20px;
     }
 </style>
 
-@* vores burger menu sidebar *@
 <div class="sidebar-container">
     <div class="sidebar @(isSidebarVisible ? "show" : "")">
         <ul>
+            <li><a href="/">Home</a></li>
             <li><a href="/HumidityChart">CO2 Chart</a></li>
             <li><a href="/index">Air Quality Chart</a></li>
             <li><a href="/index">Temperature Chart</a></li>
             <li><a href="/index">Humidity Chart</a></li>
-            <li><a href="/">Home</a></li>
         </ul>
     </div>
-  @*vores implenation af de forskellige kompotenter vi har oprettet som vi vil have displayet i denne her main page *@
+
     <div class="content @(isSidebarVisible ? "content-push" : "")">
         <div class="chart-container">
-            <a href="/index" class="chart">
-                <CO2Chart></CO2Chart>
-            </a>
-            <a href="/index" class="chart">
-                <AirQualityChart></AirQualityChart>
-            </a>
-            <a href="/index" class="chart">
-                <TemperatureChart></TemperatureChart>
-            </a>
-            <a href="/index" class="chart">
-                <HumidityChart></HumidityChart>
-            </a>
+            <div class="chart">
+                <a href="/index">
+                    <CO2Chart></CO2Chart>
+                </a>
+            </div>
+            <div class="chart">
+                <a href="/index">
+                    <AirQualityChart></AirQualityChart>
+                </a>
+            </div>
+            <div class="chart">
+                <a href="/index">
+                    <TemperatureChart></TemperatureChart>
+                </a>
+            </div>
+            <div class="chart">
+                <a href="/index">
+                    <HumidityChart></HumidityChart>
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
-<button class="sidebar-button" @onclick="ToggleSidebar">☰</button> <!-- har flyttet det til højre vi skal lige se hvor vi vil have det til at stå -->
+<button class="sidebar-button" @onclick="ToggleSidebar">☰</button>
+
 @code {
-    // sidebaren
-    bool isSidebarVisible = false; // et tjek på om sidebaren er visibile nu by default er den false, vi bruger også denne her  oppe med class chart cotainer
+    bool isSidebarVisible = false;
+
     void ToggleSidebar()
     {
         isSidebarVisible = !isSidebarVisible;
     }
 
-    // denne her rendere vores chart i blazor
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JsRuntime.InvokeVoidAsync("drawChart", "Air Quality", 50, "AirQuality_chart_div");
-            await JsRuntime.InvokeVoidAsync("drawTemperatureChart", "Temperature", 68, "Temperature_chart_div");// fuktionen, parameter til vores navn på grafen, værdien, og dens div id
-        }
-    }
-
+    
 }
